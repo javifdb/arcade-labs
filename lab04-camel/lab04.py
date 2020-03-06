@@ -36,8 +36,9 @@ def ComprobarEstado(a, b, c):
         '\nLos nativos estan a', a-c, 'millas de ti\n')
 
 def Salir():
+    x = True
     print('\nHas salido del juego\n')
-    return True
+    return x
 
 def Oasis():
     print('\nHas entrado en el Oasis'
@@ -45,42 +46,50 @@ def Oasis():
     return 3, 0, 0
 
 def ComprobarCansancio(c):
-    if(c < 5): return False
+    x = False
+    if(c < 5): x = False
     elif(c >= 5 and c < 8):
         print('El camello se está cansando\n')
-        return False
+        x = False
     else:
         print('\nEl camello esta muerto'
             '\nFin del juego\n\n')
-        return True
+        x = True
+    return x
 
 def ComprobarDistancia(a, b):
-    if(a > b): return False
+    x = False
+    if(a > b): x = False
     elif(a > b and a-b < 15):
         print('\n¡Los nativos se estan acercando!\n')
-        return False
+        x = False
     else:
         print('\nLos nativos te han pillado'
             '\nFin del juego\n\n')
-        return True
+        x = True
+    return x
 
 def ComprobarSed(s):
-    if(s < 4): return False
+    x = False
+    if(s < 4): x = False
     elif(s >= 4 and s < 6):
         print('\nTienes sed\n')
-        return False
+        x = False
     else:
         print('\nTe has muerto de sed'
             '\nFin del juego\n\n')
-        return True
+        x = True
+    return x
 
 def GanarJuego(c, a, b, s):
+    x = False
     if(c < 8 and a > b and a >= 200 and s < 6):
         print('\nHas hecho', a, 'millas'
             '\nHas ganado!!!'
             '\nFin del juego\n\n') 
-        return True
-    else: return False   
+        x = True
+    else: x = False
+    return x
 
 def Menu():
     millas_jugador = 0
@@ -118,7 +127,7 @@ def Menu():
         if(rand == 12):  #'12' por ejemplo, puede ser otro num entre 1 y 20 ya que tienen probabilidad de 1/20
             cantimplora, sed, cansancio_camellos = Oasis()
 
-        #progreso del juego
+        
         done = ComprobarCansancio(cansancio_camellos)
         done = ComprobarDistancia(millas_jugador, millas_nativos)
         done = ComprobarSed(sed)
