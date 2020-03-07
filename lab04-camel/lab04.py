@@ -36,9 +36,8 @@ def ComprobarEstado(a, b, c):
         '\nLos nativos estan a', a-c, 'millas de ti\n')
 
 def Salir():
-    x = True
     print('\nHas salido del juego\n')
-    return x
+    return True
 
 def Oasis():
     print('\nHas entrado en el Oasis'
@@ -46,50 +45,42 @@ def Oasis():
     return 3, 0, 0
 
 def ComprobarCansancio(c):
-    x = False
-    if(c < 5): x = False
+    if(c < 5): return False
     elif(c >= 5 and c < 8):
         print('El camello se está cansando\n')
-        x = False
+        return False
     else:
         print('\nEl camello esta muerto'
             '\nFin del juego\n\n')
-        x = True
-    return x
+        return True
 
 def ComprobarDistancia(a, b):
-    x = False
-    if(a > b): x = False
+    if(a > b): return False
     elif(a > b and a-b < 15):
         print('\n¡Los nativos se estan acercando!\n')
-        x = False
+        return False
     else:
         print('\nLos nativos te han pillado'
             '\nFin del juego\n\n')
-        x = True
-    return x
+        return True
 
 def ComprobarSed(s):
-    x = False
-    if(s < 4): x = False
+    if(s < 4): return False
     elif(s >= 4 and s < 6):
         print('\nTienes sed\n')
-        x = False
+        return False
     else:
         print('\nTe has muerto de sed'
             '\nFin del juego\n\n')
-        x = True
-    return x
+        return True
 
 def GanarJuego(c, a, b, s):
-    x = False
     if(c < 8 and a > b and a >= 200 and s < 6):
         print('\nHas hecho', a, 'millas'
             '\nHas ganado!!!'
             '\nFin del juego\n\n') 
-        x = True
-    else: x = False
-    return x
+        return True
+    else: return False        
 
 def Menu():
     millas_jugador = 0
@@ -100,6 +91,7 @@ def Menu():
     done = False
 
     while(done == False):
+        #menu
         print('\nA. Beber de la cantimplora.'
             '\nB. Avanzar despacio'
             '\nC. Avanzar rapido.'
@@ -127,11 +119,17 @@ def Menu():
         if(rand == 12):  #'12' por ejemplo, puede ser otro num entre 1 y 20 ya que tienen probabilidad de 1/20
             cantimplora, sed, cansancio_camellos = Oasis()
 
-        
+        #progreso del juego        
         done = ComprobarCansancio(cansancio_camellos)
-        done = ComprobarDistancia(millas_jugador, millas_nativos)
-        done = ComprobarSed(sed)
-        done = GanarJuego(cansancio_camellos, millas_jugador, millas_nativos, sed)
+        if(done): exit()
+        else:
+            done = ComprobarDistancia(millas_jugador, millas_nativos)
+            if(done): exit()
+            else:
+                done = ComprobarSed(sed)
+                if(done): exit()
+                else:
+                    done = GanarJuego(cansancio_camellos, millas_jugador, millas_nativos, sed)
 
 Introduccion()
 Menu()
